@@ -57,7 +57,44 @@ print(f"현재 기온: {data['main']['temp']}°C")
 ***
 ## 4. 활동 이력
 
+연도|활동|내용|결과
+:---:|:---|:---|:---:|
+2025|교내 해커톤|AI 기반 학습 도우미 개발|🥇대상
+2024|오픈소스 기여|문서 번역 & 버그 수정 PR|✅머지됨
+2024|코딩 동아리|웹개발팀 팀장, 스터디 운영|👑팀장
+2023|정보처리기사|필기 & 실기 합격|📜취득
+***
+## 5. 올해 목표
+#### 🟣 단기 목표 (상반기) 
+- [x] GitHub 잔디 100일 채우기
+- [x] 첫 개인 프로젝트 배포하기
+- [x] 오픈소스 첫 기여 성공
+- [ ] React 토이 프로젝트 완성하기
+- [ ] 알고리즘 문제 100개 풀기
 
+#### 🔵 장기 목표 (하반기)
+- [ ] 포트폴리오 사이트 배포
+- [ ] 개발 블로그 게시글 30개 작성
+***
+
+## 6. 좋아하는 것들
+1. ☕ 카페에서 혼자 코딩하기 ㅡ *특히 비 오는 날*
+2. 📚 기술 블로그 읽기
+   * [velog.io](https://velog.io/) ㅡ 한국 개발자 커뮤니티
+   * [Medium](https://medium.com/) ㅡ 영문 기술 아티클
+   * [dev.to](https://dev.to/) ㅡ 글로벌 개발자 커뮤니티
+3. 😸 고양이 영상 보기 <b>(생산성 향상에 과학적으로 도움됨)</b>
+4. ✈️ 새로운 도시 탐방하기 ㅡ 올해 목표는 런던!
+***
+## 연락하기
+프로젝트 협업, 스터디 제안, 질문 뭐든 환영해요!
+채널|주소|응답 속도
+:---|:---|:---:
+📧 이메일|[email@email.com](https://google.com)|24시간 이내
+🐙 GitHub|[github.com/nickname0112](https://github.com/nickname0112)|상시 확인
+✍️ 블로그|[velog.io/@email](https://velog.io/)|주 2회 업데이트
+💼 Linkedln|[linkedin.com/in/email](https://kr.linkedin.com/)|48시간 이내
+> 같이 성장하는 개발자가 되고 싶어요. 언제든 환영해요!
 
 <!--
 **nickname0112/nickname0112** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
