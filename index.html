@@ -1,167 +1,518 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" class="no-js">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Page</title>
+  <title>My Site</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    /* ============================================================
+       Minimal Mistakes Theme — Pure HTML/CSS Recreation
+       ============================================================ */
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    :root {
+      --sans-serif: -apple-system, BlinkMacSystemFont, "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", Arial, sans-serif;
+      --serif: Georgia, Times, serif;
+      --monospace: Monaco, Consolas, "Lucida Console", monospace;
+
+      --gray: #7a8288;
+      --dark-gray: #3d4144;
+      --darker-gray: #252a2d;
+      --light-gray: #bdc1c4;
+      --lighter-gray: #f2f3f3;
+
+      --background-color: #fff;
+      --text-color: var(--dark-gray);
+      --muted-text-color: #959ea5;
+      --primary-color: #6f777d;
+      --border-color: #f2f3f3;
+      --footer-background-color: var(--lighter-gray);
+      --link-color: #0f73bf;
+      --link-color-hover: #0b5a95;
+      --masthead-link-color: var(--primary-color);
+
+      --max-width: 1280px;
+      --sidebar-width: 300px;
+      --border-radius: 4px;
+      --box-shadow: 0 1px 1px rgba(0,0,0,0.125);
     }
+
+    html { font-size: 16px; scroll-behavior: smooth; }
 
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f5f5f5;
-      color: #333;
+      font-family: var(--sans-serif);
+      background-color: var(--background-color);
+      color: var(--text-color);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
-      min-height: 100vh;
+      animation: intro 0.3s both;
     }
 
-    header {
-      background-color: #2c3e50;
-      color: white;
-      padding: 20px 40px;
+    @keyframes intro {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
     }
 
-    header h1 {
-      font-size: 1.8rem;
+    a { color: var(--link-color); text-decoration: none; }
+    a:hover { text-decoration: underline; color: var(--link-color-hover); }
+
+    /* ---- SKIP LINKS ---- */
+    .visually-hidden {
+      position: absolute; width: 1px; height: 1px;
+      padding: 0; margin: -1px; overflow: hidden;
+      clip: rect(0,0,0,0); white-space: nowrap; border: 0;
     }
 
-    nav {
-      margin-top: 10px;
+    /* ============================================================
+       MASTHEAD (Top Navigation Bar)
+       ============================================================ */
+    .masthead {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: var(--background-color);
+      border-bottom: 1px solid var(--border-color);
+      animation: intro 0.3s both 0.15s;
     }
 
-    nav a {
-      color: #bdc3c7;
-      text-decoration: none;
-      margin-right: 20px;
-      font-size: 0.95rem;
-    }
-
-    nav a:hover {
-      color: white;
-    }
-
-    main {
-      flex: 1;
-      padding: 40px;
-      max-width: 900px;
+    .masthead__inner-wrap {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: var(--max-width);
       margin: 0 auto;
+      padding: 0.5em 1em;
+    }
+
+    .site-title {
+      font-weight: bold;
+      font-size: 1em;
+      color: var(--masthead-link-color);
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.3;
+    }
+    .site-title:hover { text-decoration: none; color: var(--darker-gray); }
+
+    .site-subtitle {
+      display: block;
+      font-size: 0.625em;
+      color: var(--muted-text-color);
+      font-weight: normal;
+    }
+
+    .greedy-nav {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      justify-content: space-between;
+    }
+
+    .visible-links {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      gap: 0;
+    }
+
+    .masthead__menu-item a {
+      padding: 0.5em 1em;
+      color: var(--masthead-link-color);
+      font-size: 0.875em;
+      white-space: nowrap;
+      display: block;
+      border-bottom: 3px solid transparent;
+      transition: all 0.2s ease-in-out;
+    }
+    .masthead__menu-item a:hover {
+      text-decoration: none;
+      border-bottom-color: var(--primary-color);
+      color: var(--darker-gray);
+    }
+
+    /* ============================================================
+       PAGE LAYOUT (Sidebar + Content)
+       ============================================================ */
+    .page__content-wrap {
+      display: flex;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      width: 100%;
+      flex: 1;
+    }
+
+    /* ============================================================
+       SIDEBAR (Author Profile)
+       ============================================================ */
+    .sidebar {
+      width: var(--sidebar-width);
+      flex-shrink: 0;
+      padding: 1em;
+      animation: intro 0.3s both 0.3s;
+    }
+
+    .author__avatar {
+      text-align: center;
+      margin-bottom: 0.5em;
+    }
+    .author__avatar img {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      border: 3px solid var(--light-gray);
+      object-fit: cover;
+    }
+
+    .author__content {
+      text-align: center;
+      margin-bottom: 0.5em;
+    }
+    .author__name {
+      margin: 0.5em 0 0.25em;
+      font-size: 1em;
+      font-weight: bold;
+    }
+    .author__name a { color: var(--text-color); }
+    .author__bio {
+      font-size: 0.75em;
+      color: var(--muted-text-color);
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    .author__urls-wrapper {
+      margin-top: 0.5em;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.4em 0.9em;
+      font-size: 0.75em;
+      font-weight: bold;
+      border-radius: var(--border-radius);
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+      text-align: center;
+    }
+    .btn--inverse {
+      background: var(--background-color);
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+      width: 100%;
+      margin-bottom: 0.5em;
+    }
+    .btn--inverse:hover {
+      background: var(--primary-color);
+      color: #fff;
+      border-color: var(--primary-color);
+    }
+
+    .author__urls {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .author__urls li {
+      font-size: 0.75em;
+      padding: 0.25em 0;
+    }
+    .author__urls li a {
+      color: var(--muted-text-color);
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+    }
+    .author__urls li a:hover { color: var(--link-color); text-decoration: none; }
+    .author__urls .fas, .author__urls .fab {
+      width: 1em;
+      text-align: center;
+      color: var(--muted-text-color);
+    }
+
+    /* ============================================================
+       MAIN CONTENT AREA
+       ============================================================ */
+    .page__main {
+      flex: 1;
+      min-width: 0;
+      padding: 1em 2em 1em 1em;
+      animation: intro 0.3s both 0.3s;
+    }
+
+    /* ---- ARCHIVE / POSTS ---- */
+    .archive {
       width: 100%;
     }
 
-    .hero {
-      background: white;
-      border-radius: 8px;
-      padding: 40px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-      text-align: center;
-      margin-bottom: 30px;
+    .page__title {
+      font-size: 1.563em;
+      margin-top: 0;
+      margin-bottom: 0.5em;
+      line-height: 1.3;
+      color: var(--text-color);
     }
 
-    .hero h2 {
-      font-size: 2rem;
-      margin-bottom: 15px;
-      color: #2c3e50;
+    .page__meta {
+      font-size: 0.6875em;
+      color: var(--muted-text-color);
+      margin-bottom: 0.5em;
     }
 
-    .hero p {
-      font-size: 1.1rem;
-      color: #666;
-      line-height: 1.7;
+    .archive__subtitle {
+      margin: 1.414em 0 0.5em;
+      padding-bottom: 0.5em;
+      font-size: 1em;
+      color: var(--muted-text-color);
+      border-bottom: 1px solid var(--border-color);
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
 
-    .hero button {
-      margin-top: 25px;
-      padding: 12px 30px;
-      background-color: #3498db;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: background-color 0.2s;
+    /* ---- LIST ENTRIES ---- */
+    .list__item {
+      padding-bottom: 1.5em;
+      margin-bottom: 1.5em;
+      border-bottom: 1px solid var(--border-color);
     }
+    .list__item:last-child { border-bottom: none; }
 
-    .hero button:hover {
-      background-color: #2980b9;
+    .archive__item-title {
+      margin: 0 0 0.25em;
+      font-size: 1em;
+      font-weight: bold;
+      line-height: 1.4;
     }
+    .archive__item-title a { color: var(--text-color); }
+    .archive__item-title a:hover { color: var(--link-color); text-decoration: none; }
 
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-    }
-
-    .card {
-      background: white;
-      border-radius: 8px;
-      padding: 25px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    }
-
-    .card h3 {
-      font-size: 1.1rem;
-      margin-bottom: 10px;
-      color: #2c3e50;
-    }
-
-    .card p {
-      font-size: 0.95rem;
-      color: #666;
+    .archive__item-excerpt {
+      font-size: 0.875em;
+      color: var(--muted-text-color);
       line-height: 1.6;
+      margin: 0.25em 0 0.5em;
     }
 
-    footer {
-      background-color: #2c3e50;
-      color: #bdc3c7;
-      text-align: center;
-      padding: 20px;
-      font-size: 0.85rem;
+    .page__meta-date { color: var(--muted-text-color); font-size: 0.6875em; }
+
+    /* ---- READ MORE LINK ---- */
+    .btn--primary {
+      background: var(--primary-color);
+      color: #fff;
+      font-size: 0.6875em;
+      padding: 0.3em 0.8em;
+      border-radius: var(--border-radius);
+    }
+    .btn--primary:hover { background: var(--darker-gray); color: #fff; text-decoration: none; }
+
+    /* ============================================================
+       FOOTER
+       ============================================================ */
+    .page__footer {
+      width: 100%;
+      margin-top: auto;
+      background-color: var(--footer-background-color);
+      color: var(--muted-text-color);
+      animation: intro 0.3s both 0.45s;
+    }
+
+    .page__footer footer {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 2em 1em;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 1em;
+    }
+
+    .page__footer a { color: inherit; }
+    .page__footer a:hover { text-decoration: underline; }
+
+    .page__footer-copyright {
+      font-size: 0.6875em;
+    }
+
+    .page__footer-follow ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      font-size: 0.6875em;
+      display: flex;
+      gap: 0.75em;
+      flex-wrap: wrap;
+    }
+
+    /* ============================================================
+       RESPONSIVE
+       ============================================================ */
+    @media (max-width: 1023px) {
+      .sidebar { width: 220px; }
+    }
+    @media (max-width: 767px) {
+      .page__content-wrap { flex-direction: column; }
+      .sidebar {
+        width: 100%;
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 1em;
+      }
+      .author__avatar img { width: 80px; height: 80px; }
+      .page__main { padding: 1em; }
+      .visible-links { display: none; }
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <h1>My Website</h1>
-    <nav>
-      <a href="#">홈</a>
-      <a href="#">소개</a>
-      <a href="#">서비스</a>
-      <a href="#">연락처</a>
-    </nav>
-  </header>
-
-  <main>
-    <section class="hero">
-      <h2>환영합니다!</h2>
-      <p>이곳은 기본 HTML 페이지입니다. 원하는 내용으로 자유롭게 수정해 보세요.</p>
-      <button onclick="alert('버튼이 클릭되었습니다!')">시작하기</button>
-    </section>
-
-    <section class="cards">
-      <div class="card">
-        <h3>기능 1</h3>
-        <p>여기에 첫 번째 기능이나 서비스에 대한 설명을 작성하세요.</p>
+  <!-- ===================== MASTHEAD ===================== -->
+  <div class="masthead">
+    <div class="masthead__inner-wrap">
+      <div class="greedy-nav">
+        <a class="site-title" href="/">
+          My Site
+          <span class="site-subtitle">Powered by Minimal Mistakes</span>
+        </a>
+        <nav id="site-nav">
+          <ul class="visible-links">
+            <li class="masthead__menu-item"><a href="#">Posts</a></li>
+            <li class="masthead__menu-item"><a href="#">Categories</a></li>
+            <li class="masthead__menu-item"><a href="#">Tags</a></li>
+            <li class="masthead__menu-item"><a href="#">About</a></li>
+          </ul>
+        </nav>
       </div>
-      <div class="card">
-        <h3>기능 2</h3>
-        <p>여기에 두 번째 기능이나 서비스에 대한 설명을 작성하세요.</p>
-      </div>
-      <div class="card">
-        <h3>기능 3</h3>
-        <p>여기에 세 번째 기능이나 서비스에 대한 설명을 작성하세요.</p>
-      </div>
-    </section>
-  </main>
+    </div>
+  </div>
 
-  <footer>
-    <p>&copy; 2026 My Website. All rights reserved.</p>
-  </footer>
+  <!-- ===================== MAIN LAYOUT ===================== -->
+  <div class="page__content-wrap">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="author__avatar">
+        <a href="/">
+          <img src="https://github.com/github.png" alt="Author Avatar">
+        </a>
+      </div>
+      <div class="author__content">
+        <h3 class="author__name"><a href="/">Your Name</a></h3>
+        <p class="author__bio">여기에 자기소개를 작성하세요.</p>
+      </div>
+      <div class="author__urls-wrapper">
+        <button class="btn btn--inverse">Follow</button>
+        <ul class="author__urls">
+          <li>
+            <a href="#"><i class="fas fa-fw fa-location-dot"></i><span>Seoul, Korea</span></a>
+          </li>
+          <li>
+            <a href="https://github.com/nickname0112" rel="noopener noreferrer" target="_blank">
+              <i class="fab fa-fw fa-github"></i><span>GitHub</span>
+            </a>
+          </li>
+          <li>
+            <a href="mailto:your@email.com">
+              <i class="fas fa-fw fa-square-envelope"></i><span>Email</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="page__main" role="main">
+      <div class="archive">
+
+        <h3 class="archive__subtitle">Recent Posts</h3>
+
+        <!-- Post 1 -->
+        <div class="list__item">
+          <article class="archive__item">
+            <h2 class="archive__item-title">
+              <a href="#">첫 번째 포스트 제목</a>
+            </h2>
+            <p class="page__meta">
+              <span class="page__meta-date">
+                <i class="far fa-fw fa-calendar-alt"></i>
+                <time>2026-05-22</time>
+              </span>
+            </p>
+            <p class="archive__item-excerpt">
+              포스트 요약 내용이 여기에 표시됩니다. 블로그 글의 첫 몇 줄이 자동으로 발췌되어 목록에 노출됩니다.
+            </p>
+            <a href="#" class="btn btn--primary">Read More</a>
+          </article>
+        </div>
+
+        <!-- Post 2 -->
+        <div class="list__item">
+          <article class="archive__item">
+            <h2 class="archive__item-title">
+              <a href="#">두 번째 포스트 제목</a>
+            </h2>
+            <p class="page__meta">
+              <span class="page__meta-date">
+                <i class="far fa-fw fa-calendar-alt"></i>
+                <time>2026-05-15</time>
+              </span>
+            </p>
+            <p class="archive__item-excerpt">
+              두 번째 포스트의 요약 내용입니다. Minimal Mistakes 테마는 깔끔하고 읽기 좋은 레이아웃을 제공합니다.
+            </p>
+            <a href="#" class="btn btn--primary">Read More</a>
+          </article>
+        </div>
+
+        <!-- Post 3 -->
+        <div class="list__item">
+          <article class="archive__item">
+            <h2 class="archive__item-title">
+              <a href="#">세 번째 포스트 제목</a>
+            </h2>
+            <p class="page__meta">
+              <span class="page__meta-date">
+                <i class="far fa-fw fa-calendar-alt"></i>
+                <time>2026-05-08</time>
+              </span>
+            </p>
+            <p class="archive__item-excerpt">
+              세 번째 포스트의 요약 내용입니다. 사이드바에는 작성자 프로필과 소셜 링크가 표시됩니다.
+            </p>
+            <a href="#" class="btn btn--primary">Read More</a>
+          </article>
+        </div>
+
+      </div><!-- .archive -->
+    </main>
+
+  </div><!-- .page__content-wrap -->
+
+  <!-- ===================== FOOTER ===================== -->
+  <div class="page__footer">
+    <footer>
+      <div class="page__footer-copyright">
+        &copy; 2026 My Site. Powered by
+        <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a>
+        &amp;
+        <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.
+      </div>
+      <div class="page__footer-follow">
+        <ul>
+          <li><strong>Follow:</strong></li>
+          <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square"></i> Feed</a></li>
+          <li><a href="https://github.com/nickname0112"><i class="fab fa-fw fa-github"></i> GitHub</a></li>
+        </ul>
+      </div>
+    </footer>
+  </div>
 
 </body>
 </html>
